@@ -1,5 +1,5 @@
 # ecomVery
-tes git push
+new main
 
 - Instalasi
     - mkdir ecomvery di local --> Buat repo baru git --> clone repo tsb ke local --> test push
