@@ -19,5 +19,7 @@ new main
     - set path di settings.py
     - setting url media
 - Testing
+    - install coverage
+    - coverage run manage.py test
 
 
