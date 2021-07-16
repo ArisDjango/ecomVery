@@ -28,9 +28,9 @@ class TestViewResponses(TestCase):
         """
         Test allowed hosts
         """
-        response = self.c.get('/', HTTP_HOST='noaddress.com')
+        response = self.c.get('/', HTTP_HOST='localhost')
         self.assertEqual(response.status_code, 400)
-        response = self.c.get('/', HTTP_HOST='yourdomain.com')
+        response = self.c.get('/', HTTP_HOST='localhost')
         self.assertEqual(response.status_code, 200)
 
     def test_homepage_url(self):
