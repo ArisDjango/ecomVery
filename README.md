@@ -82,13 +82,22 @@ new main
 ## 2. Build an ecommerce basket with session handling
 - Refactoring Tasks (optional tasks):
     - Refactoring Introduction
+        - code readibility
+        - File names
+        - Remove redundant code
+        - Add features
 - Preparing for refactoring
     - Downloading previous tutorial code
     - Open code with Visual studio Code
     - Build virtual environment and install dependencies
 - Starting to refactor project
     - Reconfigure the context processor
+        - Ubah pada settings> templates> store.views... ke store.context_processors...
+        - Buat store>context_processors.py
+        - import fungsi "categories" dari views ke store>context_processors.py
     - Remove redundant links from navbar
+        - Menghapus link2 yang tidak digunakan
+        - templates>store>base.html
     - Visual change to homepage element
     - Creating a new custom object manager
     - Removing comments from settings.py

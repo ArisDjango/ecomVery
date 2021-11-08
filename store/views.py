@@ -3,10 +3,10 @@ from django.shortcuts import get_object_or_404, render
 from .models import Category, Product
 
 
-def categories(request):
-    return {
-        'categories' : Category.objects.all()
-    }
+# def categories(request):
+#     return {
+#         'categories' : Category.objects.all()
+#     } --> refactoring
 
 # store/home.html
 def all_products(request):
