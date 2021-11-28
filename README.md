@@ -56,14 +56,24 @@ new main
     - Building the base.html page
     - Building the home.html page
     - Integrating Bootstrap to the Project
+        - getbootstrap.com
+        - copy css url pada bootstrap ke base.html
+        - copy js (separate) ke base.html
+        - Pada Body silahkan cari template yang sesuai
     - Developing the base and home page with Bootstrap
     - Developing the Category view
     - Making Data Available - Context Pre-processor
+        - agar menu bisa tampil di semua page
         - settings/template
+        - `store.views.category` --> `store.context_processors.categories`
     - Building the Products Data Grid
+        - membuat grid untuk product di home.html
     - Building the Product Single Page View
+        - url.py, views.py, product details
     - Creating the detail.html Page
+        - templates/detail.html
     - Building Dynamic Links - Linking Pages and Categories
+        - product.get_absolute_url
     - Building the Category View and Template
 
 - Testing Part 2 - Testing Views

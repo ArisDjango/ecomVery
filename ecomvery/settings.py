@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-+%!zoo9&dimk(+$xuz^fzl)*jqg+izprg47jpf9sgna&gbti81
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -38,6 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'ecommerce.apps.catalogue',
+    #'ecommerce.apps.account',
+    #'ecommerce.apps.checkout',
+    #'ecommerce.apps.basket',
+    #'ecommerce.apps.orders',
+    #'mptt'
     'store',
 ]
 
@@ -66,6 +72,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # 'store.views.categories',
                 'store.context_processors.categories',
+                #'ecommerce.apps.catalogue.context_processors.categories',
             ],
         },
     },
@@ -122,9 +129,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# Basket session ID
+#BASKET_SESSION_ID = "basket"
+
+# Custom user model
+#AUTH_USER_MODEL = "account.Customer"
+#LOGIN_REDIRECT_URL = "/account/dashboard"
+#LOGIN_URL = "/account/login/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
