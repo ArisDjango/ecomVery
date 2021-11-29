@@ -161,7 +161,7 @@ new main
         - Menyimpan data pada server-side
         - User menerima session ID
         - session ID dibutuhkan untuk pengambilan data
-    - Visual explanation of sessions
+    - Visual explanation of sessions - penjelasan
     - Viewing the Django database - session table
     - Viewing the session in the browser console
     - Django required resources to enable sessions
