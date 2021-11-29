@@ -109,7 +109,7 @@ new main
         - Menghapus link2 yang tidak digunakan
         - templates>store>base.html
     - Visual change to homepage element
-    - ![session](https://user-images.githubusercontent.com/24581953/143838596-0e442daf-eec2-46ab-b222-b0e3bf1d0177.jpg)
+    
     - Creating a new custom object manager
         ```py
         class ProductManager(models.Manager):
@@ -162,6 +162,7 @@ new main
         - User menerima session ID
         - session ID dibutuhkan untuk pengambilan data
     - Visual explanation of sessions - penjelasan
+        - ![session](https://user-images.githubusercontent.com/24581953/143838596-0e442daf-eec2-46ab-b222-b0e3bf1d0177.jpg)
     - Viewing the Django database - session table
     - Viewing the session in the browser console
     - Django required resources to enable sessions
