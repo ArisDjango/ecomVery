@@ -86,7 +86,7 @@ new main
 
 - PEP 8 Python Style Guide
     - Introduction to PEP 8
-    - Flake8 Install and Basic Usage
+    - Flake8 Install and Basic Usage--> pip install flake8
     - Installing and using isort
 
 ## 2. Build an ecommerce basket with session handling
@@ -110,18 +110,33 @@ new main
         - templates>store>base.html
     - Visual change to homepage element
     - Creating a new custom object manager
+        ```py
+        class ProductManager(models.Manager):
+        def get_queryset(self):
+            return super(ProductManager, self).get_queryset().filter(is_active=True)
+        ```
     - Removing comments from settings.py
     - Renaming views
+        - all_product --> product_all
     - SEO - Changing the page titles 
     - Changing the template names
+        - details.html --> single.html
     - Changing the URL structures - Store items
+        - Menghapus 'item' pada path url, sehingga url akan langsung mengambil slug, localhost/item/react-buku --> localhost/react-buku
     - gitignore file
     - Model - adding a default image
+        - default='images/default.png'
     - Changing the URL structures - Store category
+        - ('search/<slug>... --> ('shop/<slug
     - Creating a test to check AllOWED_HOSTS
+        - test host yang diijinkan
     - Flake8 and isort - PEP 8 compliance
+        - isort .
     - Testing - Run and Change test parameters
+        - `python manage.py tests`
     - Setup static folder
+        - Jika membutuhkan file static, biasanya untuk css dan js
+        - setting.py lalu buat folder static
     ```
     ****Important****
     Ajax will not work with the slim version of jQuery - minified version is okay.
@@ -129,10 +144,22 @@ new main
     ```
 
     - Updating the Bootstrap & jQuery CDN links
+        - code.jquery.com --> minified --> copy script
+        - Paste pada base.html --> <script>
     - Finished refactoring
+        - kode mudah dibaca
+        - penamaan files
+        - menghilangkan kode yang tumpang tindih/redundant
+        - menambahkan fitur
+
 
 - Introducing Sessions (optional step):
-    - Introduction to sessions
+    - Pengenalan session
+        - session adalah informasi yang bersifat sementara dan interaktif
+        - satu user per session - melakukan perubahan data berdasarkan per kunjungan user
+        - Menyimpan data pada server-side
+        - User menerima session ID
+        - session ID dibutuhkan untuk pengambilan data
     - Visual explanation of sessions
     - Viewing the Django database - session table
     - Viewing the session in the browser console

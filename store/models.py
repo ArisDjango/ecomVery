@@ -35,7 +35,7 @@ class Product(models.Model):
     title = models.CharField(_("judul"), max_length=255)
     author = models.CharField(_("pencipta"), max_length=255, default = 'admin')
     description = models.TextField(_("deskripsi"), blank=True)
-    image = models.ImageField(_("gambar"), upload_to='images/', height_field=None, width_field=None, max_length=None)
+    image = models.ImageField(_("gambar"), upload_to='images/', default='images/default.png', height_field=None, width_field=None, max_length=None)
     slug = models.SlugField(_("product-slug"), max_length=255)
     price = models.DecimalField(_("harga"), max_digits=4, decimal_places=2)
     in_stock = models.BooleanField(_("stok"), default=True)
