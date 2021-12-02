@@ -152,8 +152,6 @@ new main
         - penamaan files
         - menghilangkan kode yang tumpang tindih/redundant
         - menambahkan fitur
-
-
 - Introducing Sessions (optional step):
     - Pengenalan session
         - session adalah informasi yang bersifat sementara dan interaktif
@@ -162,8 +160,18 @@ new main
         - User menerima session ID
         - session ID dibutuhkan untuk pengambilan data
     - Visual explanation of sessions - penjelasan
-        - ![session](https://user-images.githubusercontent.com/24581953/143838596-0e442daf-eec2-46ab-b222-b0e3bf1d0177.jpg)
+         - ![session](https://user-images.githubusercontent.com/24581953/143838596-0e442daf-eec2-46ab-b222-b0e3bf1d0177.jpg)
     - Viewing the Django database - session table
+        - plugin SQLlite-vscode
+        - sudo install sqlite
+        - table django_session
+        - cek session by shell:
+            - python manage.py shell
+            ```
+            from django.contrib.sessions.models import Session
+            s = Session.objects.get(pk='5n6oxua39ths121v1r2ptjb68d9kqm5w')
+            s.get_decoded()
+            ```
     - Viewing the session in the browser console
     - Django required resources to enable sessions
 
