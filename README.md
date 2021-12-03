@@ -173,7 +173,11 @@ new main
             s.get_decoded()
             ```
     - Viewing the session in the browser console
+    ![sessions](https://user-images.githubusercontent.com/24581953/144684799-90811cde-912f-468f-8c8d-ab17530054ea.jpg)
+    ![sessions2](https://user-images.githubusercontent.com/24581953/144684821-fc5f9842-bd08-41ae-b1bc-32ad6db55957.jpg)
     - Django required resources to enable sessions
+    ![sessions3](https://user-images.githubusercontent.com/24581953/144684838-73c4cf78-6958-4c1d-9180-d7601df66e5b.jpg)
+
 
 - Development Part 1.0 (Preparing the project):
     - Introduction
