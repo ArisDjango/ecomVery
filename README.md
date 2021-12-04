@@ -182,12 +182,18 @@ new main
 - Development Part 1.0 (Preparing the project):
     - Introduction
     - Create a new app - basket
+        - `python manage.py createapp basket`
     - Remove unnecessary files
+        - hapus test.py dan admin.py
     - Configure the URL's for the basket
-    - Building the basket summary view
-    - Building the basket summary template
+        - buat basket.py
+        - routing urls.py core --> include basket.urls.py
+    - Building the basket summary view (basket/views.py)
+    - Building the basket summary template (templates/store/basket/summary.html)
     - Making the basket icon/button for the navbar
+        - https://getbootstrap.com/docs/5.0/components/buttons/
     - VSC extension for formatting HTML/Python template files
+    - plugin -BEAUTIFY untuk merapikan html/js > command: beautify file
 
 - Development Part 1.2 (Building a Session):
     - Building sessions
