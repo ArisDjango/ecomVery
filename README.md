@@ -193,12 +193,32 @@ new main
     - Making the basket icon/button for the navbar
         - https://getbootstrap.com/docs/5.0/components/buttons/
     - VSC extension for formatting HTML/Python template files
-    - plugin -BEAUTIFY untuk merapikan html/js > command: beautify file
+        - plugin -BEAUTIFY untuk merapikan html/js > command: beautify file
 
 - Development Part 1.2 (Building a Session):
     - Building sessions
+        - basket/basket.py
+        - class Basket() --> `def __init__`
     - Building the context_processor file
+        - 
+        ```
+        fungsi context_processors adalah sebuah metode untuk mempermudah kita menampilkan data secara global tanpa harus membuat fungsi yang saama berulang kali di banyak views / templates.
+        ```
+        - basket/context_processors.py --> buat def basket()
+        - core>templates>options>context_processors>'basket.context_processors.basket',
     - Testing the initial session setup
+        - basket.py --> `def __init__`
+        - set skey --> `...basket = self.session['skey'] = {'number': 12345}`
+        - cari session id di browser --> inspect/application/cookies
+        - atau bisa cek di table database django_session
+        - python manage.py shell
+        ```
+        from django.contrib.sessions.models import Session
+
+        s = Session.objects.get(pk='i0zrp54n5lrynjkqe0eqfqqtm5qu2803')
+        s.get_decoded()
+        ```
+
 
 - Development Part 1.3 (Creating add functionality):
     - Building the add to cart button functionality (Ajax)
