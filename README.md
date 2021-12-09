@@ -178,9 +178,11 @@ new main
     - Django required resources to enable sessions
     ![sessions3](https://user-images.githubusercontent.com/24581953/144684838-73c4cf78-6958-4c1d-9180-d7601df66e5b.jpg)
 
-
-- Development Part 1.0 (Preparing the project):
+![session part1](https://user-images.githubusercontent.com/24581953/145327404-5552acb6-0144-43ee-af71-a280f3cf0731.jpg)
+- Development Part 1.0 (Setup):
     - Introduction
+   
+
     - Create a new app - basket
         - `python manage.py createapp basket`
     - Remove unnecessary files
@@ -195,7 +197,7 @@ new main
     - VSC extension for formatting HTML/Python template files
         - plugin -BEAUTIFY untuk merapikan html/js > command: beautify file
 
-- Development Part 1.2 (Building a Session):
+- Development Part 1.2 (Create a Session & Context processor):
     - Building sessions
         - basket/basket.py
         - class Basket() --> `def __init__`
@@ -220,7 +222,7 @@ new main
         ```
 
 
-- Development Part 1.3 (Creating add functionality):
+- Development Part 1.3 (Add to session functionality):
     - Building the add to cart button functionality (Ajax)
         - tombol add to basket --> single.html
         - Pastikan versi jquery update pada base.html
@@ -263,6 +265,7 @@ new main
         - Hasil akhir. quantity --> basket button = basket total. ketika memilih produk lain, akan otomatis menambah jumlah basket 
         
 
+![session-delete](https://user-images.githubusercontent.com/24581953/145327750-fc8a2e58-2f12-4a15-be7a-af745bd3f319.jpg)
 - Development Part 2.0 (Deleting basket/session data): test
     - Introduction - deleting session data
     - Creating the basket summary template
