@@ -181,57 +181,54 @@ new main
 ![session part1](https://user-images.githubusercontent.com/24581953/145327404-5552acb6-0144-43ee-af71-a280f3cf0731.jpg)
 - Development Part 1.0 (Setup):
     - Introduction
-   
-
     - Create a new app - basket
         - `python manage.py createapp basket`
     - Remove unnecessary files
-        - hapus test.py dan admin.py
-    - Configure the URL's for the basket
-        - buat basket.py
-        - routing urls.py core --> include basket.urls.py
-    - Building the basket summary view (basket/views.py)
-    - Building the basket summary template (templates/store/basket/summary.html)
-    - Making the basket icon/button for the navbar
-        - https://getbootstrap.com/docs/5.0/components/buttons/
+        - hapus `test.py` dan `admin.py`
+    - core basket urls --> ` core > urls.py > path('basket/', include('basket.urls', namespace='basket')),` --> semua url yg berhubungan dg basket diarahkan ke `basket > urls.py`
+    - basket summary url --> `basket > urls.py > 'path('', views.basket_summary, name='basket_summary'),'`
+    - basket summary view --> `basket > views.py > def basket_summary()'`
+    - basket summary template --> `templates > store > basket > summary.html` --> basic saja, nanti di update di 2.0
+    - Making the basket icon/button for the navbar --> `https://getbootstrap.com/docs/5.0/components/buttons/`
     - VSC extension for formatting HTML/Python template files
-        - plugin -BEAUTIFY untuk merapikan html/js > command: beautify file
+        - plugin -BEAUTIFY untuk merapikan html/js > `command: beautify file`
 
 - Development Part 1.2 (Create a Session & Context processor):
     - Building sessions
-        - basket/basket.py
-        - class Basket() --> `def __init__`
+        - `basket > basket.py`
+        - `class Basket() > def __init__()` --> function yang diakses pertama kali
     - Building the context_processor file
-        - 
+        -
         ```
         fungsi context_processors adalah sebuah metode untuk mempermudah kita menampilkan data secara global tanpa harus membuat fungsi yang saama berulang kali di banyak views / templates.
         ```
-        - basket/context_processors.py --> buat def basket()
-        - core>templates>options>context_processors>'basket.context_processors.basket',
+        - `basket > context_processors.py > def basket()`
+        - `core > TEMPLATES=[] > OPTIONS:{} > 'basket.context_processors.basket',` --> registrasi di core
     - Testing the initial session setup
-        - basket.py --> `def __init__`
+        - `basket.py > 'def __init__'`
         - set skey --> `...basket = self.session['skey'] = {'number': 12345}`
         - cari session id di browser --> inspect/application/cookies
-        - atau bisa cek di table database django_session
-        - python manage.py shell
-        ```py
-        from django.contrib.sessions.models import Session
+        - atau bisa cek di table database sqlite3 > django_session
+        - `python manage.py shell`
+            ```py
+            from django.contrib.sessions.models import Session
 
-        s = Session.objects.get(pk='i0zrp54n5lrynjkqe0eqfqqtm5qu2803')
-        s.get_decoded()
-        ```
+            s = Session.objects.get(pk='i0zrp54n5lrynjkqe0eqfqqtm5qu2803')
+            s.get_decoded()
 
-
+            output = 12345
+            ```
 - Development Part 1.3 (Add to session functionality):
-    - Building the add to cart button functionality (Ajax)
-        - tombol add to basket --> single.html
-        - Pastikan versi jquery update pada base.html
-        - single.html, button add to basket --> value = {{product.id}}
-        - single.html, tambahkan script ajax pada bagian bawah
-    - URL for a the add() 
-    - view for the add()
-    - updating the basket class ()
-        - tes fungsi add to basket button pada single.html berupa (json response)  --> views.py/basket_add()
+    - Building the add to basket button functionality (Ajax)
+        - Tujuan: Memfungsikan tombol add to basket pada single.html
+        - Pastikan versi jquery update pada `base.html`
+        - basket add template -->
+            - `templates > products > single.html > ...id="add-button" value="{{product.id}}..."`
+            - `templates > products > single.html > AJAX Script -->$(document).on('click', '#add-button', function (e) { ...`
+        - basket add url --> `basket > urls.py > 'path('add/',views.basket_add, name='basket_add'),'`
+        - basket add view --> `basket > views.py > def basket_add()`
+        - basket.py --> `basket > basket.py > basket class () --> def add()`
+        - tes fungsi add to basket button pada single.html berupa (json response)  --> `basket > views.py > basket_add()`
         ```py
         from django.http import JsonResponse
         ...
@@ -251,9 +248,9 @@ new main
         {'skey': {'1': {'price': '40.00', 'qty': 1}}} 
         ```
     - Adding the Qty to the session data
-        - Tes Fungsi `Quantity drop down select` pada single.html
-        - tambahkan pada script ajax `console.log($('#select option: selected').text())`
-        - views.py > basket_add()
+        - Tujuan: Tes Fungsi `Quantity drop down select` pada single.html
+        - Untuk tes console, tambahkan pada script ajax `console.log($('#select option: selected').text())`
+        - `views.py > basket_add()`
             ```py
             ...
             basket.add(product=product, qty=product_qty)
@@ -261,22 +258,27 @@ new main
             basketqty = basket.__len__()
             response = JsonResponse({'qty': basketqty})
             ```
-        - Tes tombol quantity/add to basket, --> inspect > console, output: 1,2,3,4
-        - Hasil akhir. quantity --> basket button = basket total. ketika memilih produk lain, akan otomatis menambah jumlah basket 
+        - Tes tombol quantity & add to basket, --> inspect > console, output: 1,2,3,4
+        - Hasil akhir. pilih quantity --> tekan basket button = basket total. ketika memilih produk lain, akan otomatis menambah jumlah basket 
         
 
 ![session-delete](https://user-images.githubusercontent.com/24581953/145327750-fc8a2e58-2f12-4a15-be7a-af745bd3f319.jpg)
 - Development Part 2.0 (Deleting basket/session data): test
-    - Introduction - deleting session data
-    - Creating the basket summary template
+    - Tujuan: Halaman kumpulan produk yang masuk di basket dg fitur add & delete button
+    - Updating `templates > basket > summary.html`
     - Iterating over the session data
-    - Get the total price of the basket items  
+        - basket.py> `def __iter__`
+    - Get the total price of the basket items
+        - basket.py> `def get_total_price`
 
 - Development Part 2.1(Front-end - deleting basket/session data):
-    - Introduction - Ajax for deleting items
-    - Creating Ajax for deleting basket items
-    - Building a basket URL
-    - Creating a delete function in view
+    - Delete basket
+        - Tujuan: Memfungsikan tombol delete pada `templates > basket > summary.html`
+        - basket delete template- -> updating summary.html
+            - `templates > basket > summary.html > ...id="delete-button" data-index="{{product.id}}`
+            - `templates > basket > summary.html > AJAX script -->  $(document).on('click', '.delete-button', function (e) { ...`
+        - basket delete url --> `basket > urls.py > 'path('delete/',views.basket_delete, name='basket_delete'),'`
+        - basket delete view --> `basket > views.py > def basket_delete()`
     - Handling remove items in the basket class
     - Resolving the unique DOM ID issue with Ajax
     - Removing elements from the page with JavaScript
