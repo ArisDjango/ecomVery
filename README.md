@@ -212,7 +212,7 @@ new main
         - cari session id di browser --> inspect/application/cookies
         - atau bisa cek di table database django_session
         - python manage.py shell
-        ```
+        ```py
         from django.contrib.sessions.models import Session
 
         s = Session.objects.get(pk='i0zrp54n5lrynjkqe0eqfqqtm5qu2803')
@@ -222,10 +222,46 @@ new main
 
 - Development Part 1.3 (Creating add functionality):
     - Building the add to cart button functionality (Ajax)
-    - URL for a the add function
-    - view for the add function
-    - updating the basket class
+        - tombol add to basket --> single.html
+        - Pastikan versi jquery update pada base.html
+        - single.html, button add to basket --> value = {{product.id}}
+        - single.html, tambahkan script ajax pada bagian bawah
+    - URL for a the add() 
+    - view for the add()
+    - updating the basket class ()
+        - tes fungsi add to basket button pada single.html berupa (json response)  --> views.py/basket_add()
+        ```py
+        from django.http import JsonResponse
+        ...
+        response = JsonResponse({'test':'data'})
+        return response
+        ```
+        ```py
+        python manage.py shell
+
+        # Sebelum button 'add to basket' di tekan
+        from django.contrib.sessions.models import Session
+        s = Session.objects.get(pk='i0zrp54n5lrynjkqe0eqfqqtm5qu2803')
+        s.get_decoded()
+        {'skey': {}} # kosong
+
+        # Setelah button 'add to basket' di tekan
+        {'skey': {'1': {'price': '40.00', 'qty': 1}}} 
+        ```
     - Adding the Qty to the session data
+        - Tes Fungsi `Quantity drop down select` pada single.html
+        - tambahkan pada script ajax `console.log($('#select option: selected').text())`
+        - views.py > basket_add()
+            ```py
+            ...
+            basket.add(product=product, qty=product_qty)
+
+            basketqty = basket.__len__()
+            response = JsonResponse({'qty': basketqty})
+            ```
+        - Tes tombol quantity/add to basket, --> inspect > console, output: 1,2,3,4
+        - Hasil akhir. quantity --> basket button = basket total. ketika memilih produk lain, akan otomatis menambah jumlah basket 
+        
 
 - Development Part 2.0 (Deleting basket/session data):
     - Introduction - deleting session data
