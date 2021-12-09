@@ -263,7 +263,7 @@ new main
         - Hasil akhir. quantity --> basket button = basket total. ketika memilih produk lain, akan otomatis menambah jumlah basket 
         
 
-- Development Part 2.0 (Deleting basket/session data):
+- Development Part 2.0 (Deleting basket/session data): tes
     - Introduction - deleting session data
     - Creating the basket summary template
     - Iterating over the session data
