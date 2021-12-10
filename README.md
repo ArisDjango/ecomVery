@@ -266,22 +266,42 @@ new main
 - Development Part 2.0 (Deleting basket/session data): test
     - Tujuan: Halaman kumpulan produk yang masuk di basket dg fitur add & delete button
     - Updating `templates > basket > summary.html`
+        ```py
+        {% for item in basket %}
+        {% with product=item.product %}
+        ...<div data-index="{{product.id}}..."
+        ```
     - Iterating over the session data
-        - basket.py> `def __iter__`
+        - `basket > basket.py >  def __iter__()`
     - Get the total price of the basket items
-        - basket.py> `def get_total_price`
+        - `basket > basket.py > def get_total_price()`
 
 - Development Part 2.1(Front-end - deleting basket/session data):
-    - Delete basket
+    - Delete basket ( AJAX )
         - Tujuan: Memfungsikan tombol delete pada `templates > basket > summary.html`
         - basket delete template- -> updating summary.html
-            - `templates > basket > summary.html > ...id="delete-button" data-index="{{product.id}}`
+            - `templates > basket > summary.html > ...id="delete-button" data-index="{{product.id}}...`
             - `templates > basket > summary.html > AJAX script -->  $(document).on('click', '.delete-button', function (e) { ...`
         - basket delete url --> `basket > urls.py > 'path('delete/',views.basket_delete, name='basket_delete'),'`
         - basket delete view --> `basket > views.py > def basket_delete()`
     - Handling remove items in the basket class
+        - `basket > basket.py > def delete()`
+        - `basket > basket.py > def save()`
     - Resolving the unique DOM ID issue with Ajax
-    - Removing elements from the page with JavaScript
+        - Issue : setelah tombol delete ditekan, harus di refresh dulu baru product bisa terhapus
+        - `...data-index="{{product.id}}..."`
+
+    - Removing elements from the page with JavaScript ( AJAX )
+        - templates > basket > summary.html
+        ```js
+        ...
+        success: function (json) {
+            $('.product-item[data-index="' + prodid + '"]').remove();
+            document.getElementById("subtotal").innerHTML = json.subtotal;
+            document.getElementById("basket-qty").innerHTML = json.qty
+        },
+        ...
+        ```
 
 - Development Part 3.0 (Updating basket/session data):
     - Introduction - updating session data
