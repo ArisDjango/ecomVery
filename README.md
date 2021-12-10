@@ -303,6 +303,8 @@ new main
         ...
         ```
 
+![sessions-update](https://user-images.githubusercontent.com/24581953/145501050-fc317711-948f-42b5-989b-84e8a09814e4.jpg)
+
 - Development Part 3.0 (Updating basket/session data):
     - Introduction - updating session data
     - Capturing the user selection
