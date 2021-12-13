@@ -1,50 +1,36 @@
 # ecomVery
-new main
+List
+1. [ A. Building models, views and testing ](#A)
+2. [ A. Build an ecommerce basket with session handling ](#B)
+
+<a name="A"></a>
 ## 1. Building models, views and testing
 - DEVELOPMENT
     - Visual Studio Extensions
         - python (microsoft), ayu, django, sqlite
     - Check Python Version : `python3 --version`
     - Create Virtual Environment : 
-        ```
-        python3 -m venv venv
-        source venv/bin/activate
-        ```
+        - `python3 -m venv venv`
+        - `source venv/bin/activate`
     - Install Django : `pip install django`
-    - Start Django Project:
-        ```
-        django-admin startproject ecomvery .
-
-        ```
-    - Create New Django App
-        ```
-        python manage.py startapp store
-
-        ```
+    - Start Django Project: `django-admin startproject ecomvery .`
+    - Create New Django 'Store' App : `python manage.py startapp store`\
     - Building the Models
-        ```
-            - Edit store/models
-            - makemigrations --> migrate
-            - set settings.static/media --> set ecomvery.url
-
-        ```
+        - Edit store/models
+        - makemigrations --> migrate
+        - set settings.static/media --> set ecomvery.url
     - Install Pillow
     - Make Initial Migrations
     - Setup the Media Folder for Saving Images
-        ```
-        - set path di settings.py
+        - set path di core > settings.py
         - setting url media
-        ```
     - Django Admin Configuration
-        ```
-        - python manage.py createsuperuser
-        - store.admin --> register model yg ingin ditampilkan
-        ```
-
+        - `python manage.py createsuperuser`
+        - store > admin.py --> register model yg ingin ditampilkan
     - Testing part 1
         - install coverage
-        - coverage run manage.py test
-        - coverage run --omit='*/venv/*' manage.py test
+        - `coverage run manage.py test`
+        - `coverage run --omit='*/venv/*' manage.py test`
         - Building Model Tests?
 
 - URLs and Views
@@ -89,6 +75,7 @@ new main
     - Flake8 Install and Basic Usage--> pip install flake8
     - Installing and using isort
 
+<a name="B"></a>
 ## 2. Build an ecommerce basket with session handling
 - Refactoring Tasks (optional tasks):
     - Refactoring Introduction
