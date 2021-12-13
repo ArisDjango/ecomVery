@@ -306,17 +306,63 @@ new main
 ![sessions-update](https://user-images.githubusercontent.com/24581953/145501050-fc317711-948f-42b5-989b-84e8a09814e4.jpg)
 
 - Development Part 3.0 (Updating basket/session data):
-    - Introduction - updating session data
     - Capturing the user selection
-    - Create a URL for updating data
-    - Create the view function
-    - Further developing the basket class
-    - Developing the front-end code for update
+    - Update basket ( AJAX )
+        - Tujuan: Memfungsikan tombol quantity & update pada `templates > basket > summary.html`
+        - basket update template- -> updating summary.html
+            - `templates > basket > summary.html > ...id="update-button" data-index="{{product.id}}...`
+            - `templates > basket > summary.html > AJAX script -->  $(document).on('click', '.update-button', function (e) {`
+        - basket delete url --> `basket > urls.py > 'path('update/',views.basket_update, name='basket_update'),'`
+        - basket delete view --> `basket > views.py > def basket_update()`
+    - Updating the front-end code for update (AJAX code)
+        - `templates > basket > summary.html`
+        ```js
+            success: function (json) {
+            document.getElementById("basket-qty").innerHTML = json.qty
+            document.getElementById("subtotal").innerHTML = json.subtotal
+        },
+        ```
+        ```js
+        ...
+        Sub Total: Rp. <div id="subtotal" class="d-inline-flex">{{basket.get_total_price}}
+        ...
+        ```
     - Resolving known issues
+    3.50
+    harus di refresh baru berubah
+    
     - Resolving final issue
 
 - Testing
-    - Introduction 
+    - Introduction : python manage.py test
     - Running existing tests
+        - store > tests > test_views.py
+        ```py
+         - deactivated test_view_function() after web using a session
+         - add 'session test code' to test_homepage_html()
+
+         from importlib import import_module
+         from django.conf import settings
+
+         ...
+         def test_homepage_html()
+         ...
+         engine = import_module(settings.SESSION_ENGINE) 
+         request.session = engine.SessionStore()
+         ...
+
+        ```
+        
     - Running coverage - assessing tests required
+        
+        - `coverage run manage.py test`
+        - `coverage run --omit='*/venv/*' manage.py test`
+        - `coverage html`
+        - htmlcov > index.html
+        - Note:
+            - (__init__.py di setiap folder test mengindikasikan folder tersebut yang akan dieksekusi untuk test)
+            - setelah melakukan perubahan pada test langkah coverage diulangi sehingga html lama ter replace
+
     - Building tests for the basket app
+        - `basket > test > test_views.py`
+        - lakukan coverage

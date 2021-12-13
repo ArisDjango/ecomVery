@@ -8,7 +8,7 @@ from store.models import Category, Product
 class TestCategoriesModel(TestCase):
 
     def setUp(self):
-        self.data1 = Category.objects.create(name='django', slug='django')
+        self.data1 = Category.objects.create(name='Komputer', slug='Komputer')
 
     def test_category_model_entry(self):
         """
@@ -16,7 +16,7 @@ class TestCategoriesModel(TestCase):
         """
         data = self.data1
         self.assertTrue(isinstance(data, Category))
-        self.assertEqual(str(data), 'django')
+        self.assertEqual(str(data), 'Komputer')
 
     def test_category_url(self):
         """
@@ -30,10 +30,10 @@ class TestCategoriesModel(TestCase):
 
 class TestProductsModel(TestCase):
     def setUp(self):
-        Category.objects.create(name='django', slug='django')
+        Category.objects.create(name='Komputer', slug='komputer')
         User.objects.create(username='admin')
-        self.data1 = Product.objects.create(category_id=1, title='django beginners', created_by_id=1,
-                                            slug='django-beginners', price='20.00', image='django')
+        self.data1 = Product.objects.create(category_id=1, title='Buku Python', created_by_id=1,
+                                            slug='Buku-Python', price='20.00', image='django')
         self.data2 = Product.products.create(category_id=1, title='django advanced', created_by_id=1,
                                              slug='django-advanced', price='20.00', image='django', is_active=False)
 
@@ -43,7 +43,7 @@ class TestProductsModel(TestCase):
         """
         data = self.data1
         self.assertTrue(isinstance(data, Product))
-        self.assertEqual(str(data), 'django beginners')
+        self.assertEqual(str(data), 'Buku Python')
 
     def test_products_url(self):
         """
@@ -51,7 +51,7 @@ class TestProductsModel(TestCase):
         """
         data = self.data1
         url = reverse('store:product_detail', args=[data.slug])
-        self.assertEqual(url, '/django-beginners/')
+        self.assertEqual(url, '/Buku-Python')
         response = self.client.post(
             reverse('store:product_detail', args=[data.slug]))
         self.assertEqual(response.status_code, 200)
