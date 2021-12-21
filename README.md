@@ -1,7 +1,8 @@
 # ecomVery
 List
 1. [ A. Building models, views and testing ](#A)
-2. [ A. Build an ecommerce basket with session handling ](#B)
+2. [ B. Build an ecommerce basket with session handling ](#B)
+3. [ C. Build a user, payment and order management system](#C)
 
 <a name="A"></a>
 ## 1. Building models, views and testing
@@ -353,3 +354,320 @@ List
     - Building tests for the basket app
         - `basket > test > test_views.py`
         - lakukan coverage
+
+<a name="C"></a>
+## 3. Build a user, payment and order management system
+- screenshot `user`
+- Changing the UI of the templates
+    - static > core > css > base.css --> override bootstrap, dropdown menu, font, nav, logo, footer
+    - static > basket > css > basket.css -->
+    - Inject ke templates > store > base.html
+- Finished updating templates
+    -Code after refactoring https://github.com/veryacademy/django...
+
+- Stage 1.0 - User management
+
+    - Introduction
+    - Start building the user app
+        - `python manage.py startapp account`
+        - core > register 'account'
+    - Building the user model
+        - account > models
+            - class UserBase()
+                - UserBase models
+                - `pip install django-countries` --> untuk country fields
+        
+            - class CustomAccountManager()
+                - def createSuperUser()
+                - def createuser()
+        - core > settings.py > 
+            ```py
+            AUTH_USER_MODEL = "account.UserBase"
+            LOGIN_REDIRECT_URL = "/account/dashboard"
+            LOGIN_URL = "/account/login/"
+            ```
+    - Updating the products model
+        - store > models.py > class Product()
+            - `created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='product_creator')`
+    - User admin 
+        - account > admin.py > `admin.site.register(UserBase)`
+    - Migrate
+        - `python manage.py makemigration && python manage.py migrate`
+        - `python manage.py createsuperuser`
+        - `python manage.py runserver`
+        - 127.0.0.1/admin/ --> login menggunakan email
+
+- Stage 1.1 - User signup with email confirmation
+
+    - Start building user signup
+    - Building the form
+        - `account > forms.py > registrationForm()`
+    - Building the view
+        - `account > views.py > account_register()`
+    - Generating hash keys in Django
+        - account > token.py
+        - `pip install six`
+    - Finishing the email setup
+        - `account > views.py`
+        ```py
+        from django.utils.encoding import force_bytes, force_text
+        from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+        ```
+        - `account > views.py > def account_register() > #setup email`
+    - Building the email template
+        - `templates > account > registration > account_activation_email.html`
+    - Building the registration template
+        - `templates > account > registration > register.html`
+    - Building the registration URL
+        - `core > urls.py > path('account/', include('account.urls', namespace='account')),`
+        - `account > urls.py > path('register/', views.account_register, name='register'),`
+    - Finishing the registration form
+        - `account > forms.py > RegistrationForm() --> clean_username(), clean_password2(), clean_email(), __init__()`
+    - Templating and final functions
+        - `core > settings.py > EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'`
+        - `account > urls.py > path('activate/<slug:uidb64>/<slug:token>)/', views.account_activate, name='activate'),`
+        - `template > account > registration > account_activation_email.html`
+        - `account > views.py > account_activate()`
+        - `template > account > registration > activation_invalid.html`
+        - `account > urls.py > path('dashboard/', views.dashboard, name='dashboard'),`
+        - decorators
+            - account > views.py
+            ```py
+            ...
+            from django.contrib.auth.decorators import login_required
+            ...
+            @login_required
+            def dashboard(request):
+            ...
+            
+            
+
+            ```
+         
+    - Building up the dashboard
+        - `template > account > user > dashboard.html`
+
+- Stage 1.2 - Login/Logout
+    - Login
+        - `account > urls.py > path('login/', auth_views.LoginView.as_view(template_name='account/registration/login.html', form_class=UserLoginForm), name='login'),`
+    - Login form 
+        - account > forms.py > 
+            - `from django.contrib.auth.forms import (AuthenticationForm, PasswordResetForm,SetPasswordForm)`
+            - `UserLoginForm()`
+    - Login template
+        - `template > account > registration > login.html`
+    - Logout URL and link updates
+        - `account > urls.py > path('logout/', auth_views.LogoutView.as_view(next_page='/account/login/'), name='logout'),`
+        - templates > store > products > base.html >
+        ```py
+        ...
+        <a type="button" role="button" href="{% url "account:logout" %}"
+        ...
+        ```
+
+- Stage 1.3 Update/Edit and delete account
+    - Edit user 
+    - URL for edit user profile
+        - `account > urls.py > path('profile/edit/', views.edit_details, name='edit_details'),`
+    - Create view for profile edit
+        - `account > views.py >`
+            ```py
+            ...
+            @login_required
+            def edit_details(request):
+            ...
+            ```
+    - Create form for profile edit
+        - `account > forms.py > UserEditForm()` 
+    - Profile edit template
+        - `templates > account > user > edit_details.html`
+    - Delete user
+        - `account > urls.py > path('profile/delete_user/', views.delete_user, name='delete_user'),`
+        - `account > urls.py > path('profile/delete_confirm/', TemplateView.as_view(template_name="account/user/delete_confirm.html"), name='delete_confirmation'),`
+        - `account > views >`
+            ```py
+            ...
+            @login_required
+            def delete_user(request):
+            ...
+            ```
+        - `templates > account > user > delete_confirm.html`
+    - Forgotten password
+        - `account > urls.py >`
+            ```py
+            ...
+            path('password_reset/', auth_views.PasswordResetView.as_view ...
+            path('password_reset_confirm/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view...
+            path('password_reset/password_reset_email_confirm/',TemplateView.as_view ...
+            path('password_reset_confirm/Mg/password_reset_complete/',TemplateView.as_view...
+            ...
+            ```
+        - `account > forms.py` >
+            ```py
+            PwdResetForm()
+            PwdResetConfirmForm()
+            ```
+    
+    - Email template
+        - `templates > account > password_reset_email.html`
+    - Password reset template
+        - `templates > account > password_reset_form.html`
+        - `templates > account > reset_status.html`
+
+- Stage 2.0 - Payment
+    - Introduction
+    - Stripe payment stages
+    - Build payment app
+        - `python manage.py startapp payment`
+        - core > registrasi 'payment'
+    - Payment template
+        - `templates > payment > home.html`
+    - Payment URL
+        - `core > urls.py > path('payment/', include('payment.urls', namespace='payment')),`
+        - `payment > urls.py > path('', views.BasketView, name='basket'),`
+    - Payment view
+        ```py
+        @login_required
+        def BasketView(request):
+        ```
+    - Stripe Elements 
+        - dashboard.stripe.com/test/apikeys --> publish key & secret key
+        - 
+            ```py
+            def BasketView(request):
+                ...
+                stripe.api_key = '<SECRET KEY>'
+                intent = stripe.PaymentIntent.create(
+                    amount=total,
+                    currency='gbp',
+                    metadata={'userid': request.user.id}
+                )
+
+                return render(request, 'payment/home.html', {'client_secret': intent.client_secret})
+            ```
+        - `pip install stripe=2.6.3`
+        - `templates > payment > home.html`
+            - `<button id="submit" class="btn btn-primary w-100 fw-bold" data-secret="{{ client_secret }}">Pay</button>`
+            -
+            ```js
+            <script>
+                {% comment %} Make csrf token availble in JS files {% endcomment %}
+                var CSRF_TOKEN = '{{ csrf_token }}';
+            </script>
+            <script src="https://js.stripe.com/v3/"></script>
+            <script src="{% static 'payment/index.js' %}" data-rel-js></script>
+            ```
+        - `static > payment > index.js '
+            ```js
+            var stripe = Stripe(<PUBLISH KEY>)`
+            ...
+            ```
+        - stripe.com/docs/stripe-js
+        - lakukan transaksi
+        - cek pada stripe.com apakah transaksi sudah masuk
+
+    - Stripe CLI
+        - DOC : https://stripe.com/docs/stripe-cli
+        - Download the latest linux tar.gz file from https://github.com/stripe/stripe-cli/releases/latest
+        - Unzip the file: tar -xvf stripe_X.X.X_linux_x86_64.tar.gz
+        - Move ./stripe to your execution path. --> sudo mv stripe /usr/local/bin
+        - terminal > stripe login
+        - klik link auth, masukkan password di browser. Stripe CLI siap digunakan
+        - Coba lakukan checkout
+        - terminal > stripe listen --> setiap ada transaksi akan muncul
+ 
+- Stage 3.0 Order capture/Management
+    - Build orders app
+        - `python manage.py startapp orders`
+        - Registrasi di core
+    - Order models
+        - `orders > models.py`
+        - makemigrations & migrate
+    - Connect orders to payment
+        - `orders > views.py`
+        - `core > urls.py > path('orders/', include('orders.urls', namespace='orders')),`
+        - `orders > urls.py > path('add/', views.add, name='add'),`
+    - Setting up Stripe webhooks
+        - `payment > views.py >`
+        ```py
+        @csrf_exempt
+        def stripe_webhook(request):
+            ...
+            # Handle the event
+        if event.type == 'payment_intent.succeeded':
+            payment_confirmation(event.data.object.client_secret)
+            ...
+        ```
+        - `orders > views.py > `
+        ```py
+        ...
+        def payment_confirmation(data):
+            Order.objects.filter(order_key=data).update(billing_status=True)
+        ...
+        ```
+        - `payment > views.py`>
+        ```py
+        def order_placed(request):
+            basket = Basket(request)
+            basket.clear()
+            return render(request, 'payment/orderplaced.html')
+
+        ```
+        - `templates > payment > orderplaced.html`
+        - `payments > urls.py >`
+            ```py        
+            path('orderplaced/', views.order_placed, name='order_placed'),
+            path('webhook/', views.stripe_webhook),
+            ```
+        - `basket > basket.py >`
+        ```py
+        def clear(self):
+            # Remove basket from session
+            del self.session['skey']
+            self.save()
+        ```
+        - core > settings.py >
+        ```py
+        # Stripe Payment
+        PUBLISHABLE_KEY = 'xxx'
+        SECRET_KEY = 'xxx'
+        STRIPE_ENDPOINT_SECRET = 'xxx'
+        ```
+        - `terminal > stripe listen --forward-to localhost:8000/payment/webhook/`
+        - lakukan transaksi checkout, setelah berhasil akan redirect ke http://127.0.0.1:8000/payment/orderplaced/
+        - pada http://127.0.0.1:8000/admin > orders, checklist Billing status seharusnya tercentang
+        
+    - Users orders setup in dashboard
+        - core > settings.py > 
+            ```py
+            #Basket session ID
+            BASKET_SESSION_ID = "basket"
+            ```
+        - templates > user > dashboard.html > {% for item in order.items.all %}
+        - basket > basket.py > --ganti __init__ pada `skey`
+        ```py
+        from django.conf import settings
+
+        ...
+        def __init__(self, request):
+            self.session = request.session
+            basket = self.session.get(settings.BASKET_SESSION_ID)
+            if settings.BASKET_SESSION_ID not in request.session:
+                basket = self.session[settings.BASKET_SESSION_ID] = {}
+            self.basket = basket
+        ...
+        def clear(self):
+            #Remove basket from session
+            del self.session[settings.BASKET_SESSION_ID]
+            self.save()
+
+        ```
+    - Update basket payment with postage calculation
+        - `python manage.py test`
+
+<a name="D"></a>
+## 4. Refactor
+- Refactoring store templates
+- Refactoring basket templates
+- Refactoring account templates
+- Refactoring payment templates

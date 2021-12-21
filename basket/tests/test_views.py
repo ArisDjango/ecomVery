@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from account.models import UserBase
 from django.test import TestCase
 from django.urls import reverse
 
@@ -7,7 +8,8 @@ from store.models import Category, Product
 
 class TestBasketView(TestCase):
     def setUp(self):
-        User.objects.create(username='admin')
+        # User.objects.create(username='admin')
+        UserBase.objects.create(email='winandiaris@gmail.com')
         Category.objects.create(name='django', slug='django')
         Product.objects.create(category_id=1, title='django beginners', created_by_id=1,
                                slug='django-beginners', price='20.00', image='django')
@@ -44,7 +46,7 @@ class TestBasketView(TestCase):
         """
         response = self.client.post(
             reverse('basket:basket_delete'), {"productid": 2, "action": "post"}, xhr=True)
-        self.assertEqual(response.json(), {'qty': 1, 'subtotal': '20.00'})
+        self.assertEqual(response.json(), {'qty': 1, 'subtotal': '31.50'})# 20.00 + 11.50 = 31.50
 
     def test_basket_update(self):
         """
@@ -52,4 +54,4 @@ class TestBasketView(TestCase):
         """
         response = self.client.post(
             reverse('basket:basket_update'), {"productid": 2, "productqty": 1, "action": "post"}, xhr=True)
-        self.assertEqual(response.json(), {'qty': 2, 'subtotal': '40.00'})
+        self.assertEqual(response.json(), {'qty': 2, 'subtotal': '51.50'}) # 40 + 11.50 = 51.50

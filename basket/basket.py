@@ -1,5 +1,7 @@
 from decimal import Decimal
 
+from django.conf import settings
+
 from store.models import Product
 
 
@@ -9,11 +11,18 @@ class Basket():
     can be inherited or overrided, as necessary.
     """
 
+    # def __init__(self, request):
+    #     self.session = request.session
+    #     basket = self.session.get('skey')
+    #     if 'skey' not in request.session:
+    #         basket = self.session['skey'] = {}
+    #     self.basket = basket
+
     def __init__(self, request):
         self.session = request.session
-        basket = self.session.get('skey')
-        if 'skey' not in request.session:
-            basket = self.session['skey'] = {}
+        basket = self.session.get(settings.BASKET_SESSION_ID)
+        if settings.BASKET_SESSION_ID not in request.session:
+            basket = self.session[settings.BASKET_SESSION_ID] = {}
         self.basket = basket
 
     def add(self, product, qty):
@@ -62,7 +71,19 @@ class Basket():
         self.save()
 
     def get_total_price(self):
-        return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
+        subtotal = sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
+
+        if subtotal == 0:
+            shipping = Decimal(0.00)
+        else:
+            shipping = Decimal(11.50)
+        
+        total = subtotal + Decimal(shipping)
+        return total
+
+        
+
+
 
     def delete(self, product):
         """
@@ -74,6 +95,12 @@ class Basket():
             del self.basket[product_id]
             print(product_id)
             self.save()
+
+    def clear(self):
+        #Remove basket from session
+        # del self.session['skey']
+        del self.session[settings.BASKET_SESSION_ID]
+        self.save()
 
     def save(self):
         self.session.modified = True

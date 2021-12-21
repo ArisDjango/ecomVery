@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'store',
     'basket',
     'account',
+    'orders',
     'catalogue',
     'checkout',
 ]
@@ -142,16 +143,26 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-# Basket session ID
-#BASKET_SESSION_ID = "basket"
+#Basket session ID
+BASKET_SESSION_ID = "basket"
+
+# Stripe Payment
+PUBLISHABLE_KEY = 'pk_test_51K6UYoJtaYn6oIYDaljcQ9JvftFKy6as4l0jSFRFCOL31wS9lepTffk3SkwkoCRYS82Ed15fPZxCSbj6o9jb6sLK00c1r3nNQF'
+SECRET_KEY = 'sk_test_51K6UYoJtaYn6oIYDB0iqTO5sx6MQvJLZzSHOBRW4TCjQOGgcFfSiebLAzHVIDJgsSauFpLyGkwkBIP2XPlofG3tZ00cEGplIfd'
+STRIPE_ENDPOINT_SECRET = 'whsec_ixaR99wdK9VFwr9WNf7PazkIwimAB0IG' # Dari stripe CLI
+# stripe listen --forward-to localhost:8000/payment/webhook/
 
 # Custom user model
-#AUTH_USER_MODEL = "account.Customer"
-#LOGIN_REDIRECT_URL = "/account/dashboard"
-#LOGIN_URL = "/account/login/"
+# AUTH_USER_MODEL = "account.Customer"
+AUTH_USER_MODEL = "account.UserBase"
+LOGIN_REDIRECT_URL = "/account/dashboard"
+LOGIN_URL = "/account/login/"
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email setting
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
