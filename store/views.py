@@ -9,7 +9,8 @@ from .models import Category, Product
 
 # store/home.html
 def product_all(request):
-    products = Product.products.all()
+    # products = Product.products.all()
+    products = Product.objects.all()
     return render(request, 'store/index.html', {'products': products})
     # return render(request, 'test.html')
 

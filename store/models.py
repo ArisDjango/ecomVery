@@ -33,7 +33,7 @@ class Category(MPTTModel):
     def __str__(self):
         return self.name 
     
-class ProductType(models.model):
+class ProductType(models.Model):
     name = models.CharField(
         verbose_name=_("Product Name"),
         help_text=_("Required"),
@@ -49,7 +49,7 @@ class ProductType(models.model):
     def __str__(self):
         return self.name 
 
-class ProductSpecification(models.model):
+class ProductSpecification(models.Model):
     product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
     name = models.CharField(verbose_name=_("Name"), help_text=_("Required"), max_length=255)
 
@@ -60,7 +60,7 @@ class ProductSpecification(models.model):
     def __str__(self):
         return self.name
 
-class Product(models.model):
+class Product(models.Model):
     product_type = models.ForeignKey(ProductType, on_delete=models.RESTRICT)
     category = models.ForeignKey(Category, on_delete=models.RESTRICT)
     title = models.CharField(
@@ -105,16 +105,16 @@ class Product(models.model):
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
 
     class Meta:
-        ordering = ("-created at")
+        ordering = ('-created_at',)
         verbose_name = _("Product")
         verbose_name_plural = _("Products")
 
     def get_absolute_url(self):
         return reverse("store:product_detail", args=[self.slug])
 
-class ProductSpecificationValue(models.model):
+class ProductSpecificationValue(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    specification = models.ForeignKey(ProductSpecification, on_delete=models.STRICT)
+    specification = models.ForeignKey(ProductSpecification, on_delete=models.RESTRICT)
     value = models.CharField(
         verbose_name = _("value"),
         help_text = _("Product specification value ( maximum of 255 words)"),
@@ -128,7 +128,7 @@ class ProductSpecificationValue(models.model):
     def __str__(self):
         return self.value
 
-class ProductImage(models.model):
+class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(
         verbose_name=_("Image"),
