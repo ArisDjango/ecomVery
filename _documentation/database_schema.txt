@@ -1,0 +1,73 @@
+https://dbdiagram.io/d
+
+//// -- LEVEL 1
+//// -- Tables and References
+    
+    Table category_MPPT as C {
+        id int [pk, increment]
+        name varchar
+        slug slug
+        parent varchar
+        is_active boolean
+    }
+    
+    Table ProductType as PT {
+        id int [pk, increment]
+        name varchar
+        is_active boolean
+    }
+    
+    Table ProductSpecification as PSP {
+        id int [pk, increment]
+        product_type int
+        name varchar
+    }
+    
+    Table ProductSpecificationValue as PSV {
+        id int [pk, increment]
+        product int
+        specification int
+        value varchar
+    }
+    
+    Table Product as P {
+        id int [pk, increment]
+        product_type int
+        category int
+        description varchar
+        slug slug
+        regular_price decimal
+        discount_price decimal
+        is_active boolean
+        created_at timestamp
+        updated_at timestamp
+    }
+    
+    Table ProductImage as PI {
+        id int [pk, increment]
+        product int
+        category int
+        description varchar
+        slug slug
+        regular_price decimal
+        discount_price decimal
+        is_active boolean
+        created_at timestamp
+        updated_at boolean
+    }
+    
+    
+    
+    Ref: "ProductSpecification"."id" < "ProductSpecificationValue"."specification"
+    
+    Ref: "Product"."id" < "ProductImage"."product"
+    
+    Ref: "ProductType"."id" < "Product"."product_type"
+    
+    Ref: "Product"."id" < "ProductSpecificationValue"."product"
+    
+    Ref: "category_MPPT"."id" < "Product"."category"
+    
+    Ref: "ProductType"."id" < "ProductSpecification"."product_type"rement]
+  
+

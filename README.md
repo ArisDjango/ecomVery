@@ -671,4 +671,35 @@ List
 - Refactoring basket templates
 - Refactoring account templates
 - Refactoring payment templates
-15.55
+
+<a name="E"></a>
+## 5. Multi-Product Types Database Implementation
+- Introduction
+- Content
+- Preview of db schema
+- Start-up project
+- Black and isort vscode automation
+- Sorting the requirements text
+- Modularising settings.py
+    - core > settings > __init__.py
+    - move settings.py ke dir diatas, rename menjadi base.py
+    - ubah basedir --> `BASE_DIR = Path(__file__).resolve().parent.parent.parent`
+    - manage.py > `'DJANGO_SETTINGS_MODULE', 'ecomvery.settings.base'`
+- Django-debug-toolbar
+    - pip install django-debug-toolbar
+    - pastikan core > settings --> DEBUG = True
+    - core > settings > dev_debug.py
+    - manage.py > `'DJANGO_SETTINGS_MODULE', 'ecomvery.settings.dev_debug'`
+    - core > urls.py >  `path("__debug__/", include(debug_toolbar.urls)),`
+- Database schema walkthrough
+    - dbdiagram.io/d
+    - _documentation > database_schema.txt
+- Building the database
+    - hapus model database lama
+    - pip install django-mptt
+
+
+50:48 Finish building database - Migration
+52:55 Integrating db into templates intro
+54:42 Setting up admin.py
+01:01:27 Integrating db into templates
