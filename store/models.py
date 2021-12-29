@@ -17,7 +17,7 @@ class Category(MPTTModel):
         max_length=255,
         unique=True
     )
-    parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
+    parent = TreeForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, related_name="children")
     is_active = models.BooleanField(default=True)
 
     class MPTTMeta:
@@ -28,7 +28,7 @@ class Category(MPTTModel):
         verbose_name_plural = _("Categories")
 
     def get_absolute_url(self):
-        return reverse("store:category_list)", args=[self.slug])
+        return reverse("store:category_list", args=[self.slug])
 
     def __str__(self):
         return self.name 
@@ -111,6 +111,9 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("store:product_detail", args=[self.slug])
+    
+    def __str__(self):
+        return self.title
 
 class ProductSpecificationValue(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -129,7 +132,7 @@ class ProductSpecificationValue(models.Model):
         return self.value
 
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_image")
     image = models.ImageField(
         verbose_name=_("Image"),
         help_text=_("Upload a product image"),
@@ -139,7 +142,7 @@ class ProductImage(models.Model):
     alt_text = models.CharField(
         verbose_name=_("Alternative text"),
         help_text=_("Please add alternative text"),
-        max_length=255, 
+        max_length=255,   
         null=True,
         blank=True,
     )
