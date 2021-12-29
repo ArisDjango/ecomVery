@@ -699,7 +699,7 @@ List
     - pip install django-mptt
 
 
-50:48 Finish building database - Migration
-52:55 Integrating db into templates intro
-54:42 Setting up admin.py
-01:01:27 Integrating db into templates
+- Finish building database - Migration
+- Integrating db into templates intro
+- Setting up admin.py
+- Integrating db into templates
