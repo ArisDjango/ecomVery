@@ -6,7 +6,8 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecomvery.settings.dev_debug')
+    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecomvery.settings.dev_debug') #Django Debug toolbar
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecomvery.settings.base')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

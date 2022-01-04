@@ -665,16 +665,17 @@ List
     - Update basket payment with postage calculation
         - `python manage.py test`
 
-<a name="D"></a>
+<a name="D">Refactor</a>
 ## 4. Refactor
 - Refactoring store templates
 - Refactoring basket templates
 - Refactoring account templates
 - Refactoring payment templates
 
-<a name="E"></a>
+<a name="E">MPTT</a>
 ## 5. Multi-Product Types Database Implementation
 - Introduction
+    - Implementasinya pada sub category product, lebih mudah menentukan parent / childnya
 - Content
 - Preview of db schema
 - Start-up project
@@ -697,9 +698,58 @@ List
 - Building the database
     - hapus model database lama
     - pip install django-mptt
-
-
-- Finish building database - Migration
+    - store > models.py --> perubahan besar pada models
+- Finish building database 
+    - Migration : makemigrations && migrate
 - Integrating db into templates intro
-- Setting up admin.py
-- Integrating db into templates
+    - Setting up admin.py --> - menampilkan data models pada admin
+    - Integrating db into templates - perubahan template tag merujuk pada models baru
+
+<a name="F"></a>
+## 6. CRUD and UUID - Managing multiple addresses
+- Introduction
+    - Preview of build features
+        - Implementasinya adalah penggunaan custom id 
+    - Workflow
+    - Account model changes
+- DB Development
+    - Start changing the account table model
+        - lihat table baru --> customer & address
+    - Actually making changes (sorry about the chatting)
+        - account > models.py
+        - Perubahan besar, dimana replace `UserBase()` dengan `Customer()` dan `Address()`
+    - Introducing the UUID field
+        - pada Address() menguunakan 'UUIDField'
+        - Berfungsi sebagai custom id
+    - Fixing problems with the changes we made in the account model
+        - Fixing code2 di file lain menyesuaikan perubahan yang ada di model
+        - makemigrations && migrate 
+    - Turn off the Django debug toolbar
+
+
+- UI Changes
+
+    - Making changes to the dashboard UI --> base.py
+    - menampilkan nama user pada dashboard ketika login
+    - templates > account > dashboard > dashboard.html
+    - templates > account > sub_base.html
+
+- CRUD
+
+    - Building the URLS for the address CRUD system
+        - account > urls.py
+        - path("addresses/" ...
+    - Add address 
+        - account > forms.py > `class UserAddressForm(forms.ModelForm):...`
+        - account > views > `def add_address(request):...`
+        - urls
+        - templates > account > dashboard > adresses.html
+    - Edit address
+        - account > views > `def edit_address(request):...`
+        - url
+        - templates > account > dashboard > edit_adresses.html
+    - Delete address
+        - account > views > `def delete_address(request, id):...`
+        - url
+    - Set default address
+        - account > views > `def set_default(request, id):...`

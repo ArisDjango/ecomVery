@@ -55,6 +55,32 @@ https://dbdiagram.io/d
         created_at timestamp
         updated_at boolean
     }
+
+    Table Address as AD {
+        id int [pk, increment]
+        customer varchar
+        country_region varchar
+        full_name varchar
+        phone varchar(20)
+        postcode varchar
+        address_line varchar
+        address_line2 varchar
+        town_city varchar
+    }
+    
+    Table Customer as CU {
+        id int [pk, increment]
+        email email
+        name varchar(120)
+        mobile varchar(20)
+        password password
+        is_active boolean
+        is_staff boolean
+        created_at timestamp
+        updated_at timestamp
+    }
+    
+    Ref: "Customer"."id" < "Address"."customer"
     
     
     

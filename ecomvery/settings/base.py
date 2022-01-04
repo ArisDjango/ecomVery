@@ -160,7 +160,8 @@ STRIPE_ENDPOINT_SECRET = 'whsec_ixaR99wdK9VFwr9WNf7PazkIwimAB0IG' # Dari stripe 
 
 # Custom user model
 # AUTH_USER_MODEL = "account.Customer"
-AUTH_USER_MODEL = "account.UserBase"
+# AUTH_USER_MODEL = "account.UserBase" #during UUID
+AUTH_USER_MODEL = "account.Customer"
 LOGIN_REDIRECT_URL = "/account/dashboard"
 LOGIN_URL = "/account/login/"
 
