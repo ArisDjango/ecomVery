@@ -753,3 +753,27 @@ List
         - url
     - Set default address
         - account > views > `def set_default(request, id):...`
+
+<a name="G"></a>
+## 6. Customer Wish List
+- Introduction
+- Understanding one-to-one fields
+- Adding/migrating a one-to-one field in database
+    - store > models.py > Product()
+    - `users_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="user_wishlist", blank=True)`
+- Workflow for creating a Wish-List
+- Setup the add_to_wishlist URL and view
+    - account > urls.py > wishlist
+- Moving to the front-end - add the Wish List button
+    - templates > store > single.html
+- Hook up the user dashboard with the Wish List functions
+    - Menambahkan menu wish list di dashboard --> `templates > account > dashboard > dashboard.html`
+    - Halaman wish list --> `templates > account > dashboard > user_wish_list.html`
+    - views untuk wish list --> `account > views > wishlist() && add_to_wish_list() `
+    - urls --> `account > urls.py > wishlist`
+- Django message framework - implement messages
+    - core > 
+        - 'django.contrib.messages',
+        - 'django.contrib.messages.middleware.MessageMiddleware',
+    - handle pesan sukses dan delete wishlist --> `account > views > add_to_wish_list() `
+    - alert ketika add wish list --> `templates > store > single.html`

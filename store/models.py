@@ -1,8 +1,7 @@
+from django.conf import settings
 from django.db import models
-from django.db.models.constraints import UniqueConstraint
-from django.db.models.fields import BooleanField, DateTimeField, SlugField
 from django.urls import reverse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 
 class Category(MPTTModel):
@@ -103,6 +102,7 @@ class Product(models.Model):
     )
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True, editable=False )
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
+    users_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="user_wishlist", blank=True)
 
     class Meta:
         ordering = ('-created_at',)
