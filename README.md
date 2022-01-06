@@ -755,7 +755,7 @@ List
         - account > views > `def set_default(request, id):...`
 
 <a name="G"></a>
-## 6. Customer Wish List
+## 7. Customer Wish List
 - Introduction
 - Understanding one-to-one fields
 - Adding/migrating a one-to-one field in database
@@ -777,3 +777,19 @@ List
         - 'django.contrib.messages.middleware.MessageMiddleware',
     - handle pesan sukses dan delete wishlist --> `account > views > add_to_wish_list() `
     - alert ketika add wish list --> `templates > store > single.html`
+
+<a name="H"></a>
+## 8. Paypal
+- Introduction
+- Build preview
+- Download starting code
+- Removing the payment app
+- Create new checkout app
+- Building the associated checkout tables
+- Checkout Admin table registration and data input
+
+- Checkout delivery page
+- Checkout address page
+- Checkout payment page
+- PayPal 
+- Integrating with Orders
