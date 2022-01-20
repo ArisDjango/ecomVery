@@ -784,6 +784,7 @@ List
     - remove setting stripe pada core>settings.py
     - remove payment url pada core
     - remove tag 'payment' pada templates > basket > summary.html
+    - app payment sudah tidak digunakan lagi disini
 - Create new checkout app
     - python manage.py startapp checkout
     - register di core
