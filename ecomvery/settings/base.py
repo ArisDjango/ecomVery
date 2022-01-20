@@ -152,11 +152,11 @@ BASKET_SESSION_ID = "basket"
 # STRIPE_ENDPOINT_SECRET = 'whsec_ixaR99wdK9VFwr9WNf7PazkIwimAB0IG' # Dari stripe CLI
 # # stripe listen --forward-to localhost:8000/payment/webhook/
 
-# Stripe Payment
-os.environ.setdefault('STRIPE_PUBLISHABLE_KEY', 'pk_test_51K6UYoJtaYn6oIYDaljcQ9JvftFKy6as4l0jSFRFCOL31wS9lepTffk3SkwkoCRYS82Ed15fPZxCSbj6o9jb6sLK00c1r3nNQF')
-STRIPE_SECRET_KEY = 'sk_test_51K6UYoJtaYn6oIYDB0iqTO5sx6MQvJLZzSHOBRW4TCjQOGgcFfSiebLAzHVIDJgsSauFpLyGkwkBIP2XPlofG3tZ00cEGplIfd'
-STRIPE_ENDPOINT_SECRET = 'whsec_ixaR99wdK9VFwr9WNf7PazkIwimAB0IG' # Dari stripe CLI
-# stripe listen --forward-to localhost:8000/payment/webhook/
+# # Stripe Payment --> delete during part 8 paypal
+# os.environ.setdefault('STRIPE_PUBLISHABLE_KEY', 'pk_test_51K6UYoJtaYn6oIYDaljcQ9JvftFKy6as4l0jSFRFCOL31wS9lepTffk3SkwkoCRYS82Ed15fPZxCSbj6o9jb6sLK00c1r3nNQF')
+# STRIPE_SECRET_KEY = 'sk_test_51K6UYoJtaYn6oIYDB0iqTO5sx6MQvJLZzSHOBRW4TCjQOGgcFfSiebLAzHVIDJgsSauFpLyGkwkBIP2XPlofG3tZ00cEGplIfd'
+# STRIPE_ENDPOINT_SECRET = 'whsec_ixaR99wdK9VFwr9WNf7PazkIwimAB0IG' # Dari stripe CLI
+# # stripe listen --forward-to localhost:8000/payment/webhook/
 
 # Custom user model
 # AUTH_USER_MODEL = "account.Customer"

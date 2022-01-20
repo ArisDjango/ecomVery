@@ -780,15 +780,21 @@ List
 
 <a name="H"></a>
 ## 8. Paypal
-- Introduction
-- Build preview
-- Download starting code
 - Removing the payment app
+    - remove setting stripe pada core>settings.py
+    - remove payment url pada core
+    - remove tag 'payment' pada templates > basket > summary.html
 - Create new checkout app
+    - python manage.py startapp checkout
+    - register di core
 - Building the associated checkout tables
+    - checkout > models.py
 - Checkout Admin table registration and data input
-
+    - checkout > admin.py
+    - checkout > urls.py
+    - core > urls.py
 - Checkout delivery page
+    - checkout > views.py
 - Checkout address page
 - Checkout payment page
 - PayPal 

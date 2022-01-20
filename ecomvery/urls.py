@@ -22,8 +22,9 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('store.urls', namespace='store')),
+    path("checkout/", include("checkout.urls", namespace="checkout")),
     path('basket/', include('basket.urls', namespace='basket')),
-    path('payment/', include('payment.urls', namespace='payment')),
+    # path('payment/', include('payment.urls', namespace='payment')), # disable during paypal integration part 8
     path('account/', include('account.urls', namespace='account')),
     path('orders/', include('orders.urls', namespace='orders')),
     path("__debug__/", include(debug_toolbar.urls)),
