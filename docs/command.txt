@@ -1,0 +1,8 @@
+python -m venv venv
+source venv/bin/activate
+
+pip install django==3.2.7
+pip install -r requirements.txt
+- pastikan semua aplikasi berhasil terinstall
+- jalankan
+pip freeze > requirements.txt
