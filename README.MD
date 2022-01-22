@@ -18,10 +18,24 @@
     - 127.0.0.1:8000/admin/
     - Isi data : Categories, product, product types, delivery options
 
-## Docs
+## Specs
 - Django 3
 - sqlite
 - bootsrap 5
 - django mptt
 - stripe (non aktif)
 - paypal.
+
+## Docs
+- admin panel
+- account
+- store
+- orders
+- basket
+- checkout
+- payment
+
+## Next
+- refactor
+- PyTest Testing including Factory boy
+-
