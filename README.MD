@@ -24,4 +24,4 @@
 - bootsrap 5
 - django mptt
 - stripe (non aktif)
-- paypal
+- paypal.
